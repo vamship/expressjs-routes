@@ -111,7 +111,6 @@ export default class HandlerBuilder {
             this._inputMapper = mapping;
         } else {
             this._inputMapper = (req: Request) => {
-                const input = {};
                 return Object.keys(mapping).reduce((result, prop) => {
                     const path = mapping[prop];
                     const value = _dotProp.get(req, path);

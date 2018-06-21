@@ -4,21 +4,12 @@ import 'mocha';
 import _rewire from 'rewire';
 import _sinon from 'sinon';
 import _sinonChai from 'sinon-chai';
-import { mockReq, mockRes } from 'sinon-express-mock';
 
 _chai.use(_chaiAsPromised);
 _chai.use(_sinonChai);
 const expect = _chai.expect;
 
-import _argUtils from '@vamship/arg-utils';
-import { ArgError } from '@vamship/error-types';
-import {
-    asyncHelper as _asyncHelper,
-    ObjectMock,
-    testValues as _testValues
-} from '@vamship/test-utils';
-
-import _express from 'express';
+import { ObjectMock, testValues as _testValues } from '@vamship/test-utils';
 
 import { IRouteDefinition } from '../../src/handler-types';
 const _buildRoutesModule = _rewire('../../src/build-routes');

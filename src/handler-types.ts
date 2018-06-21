@@ -1,5 +1,5 @@
 import { Promise } from 'bluebird';
-import { Handler, NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 /**
  * @module root

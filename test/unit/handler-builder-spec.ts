@@ -237,7 +237,7 @@ describe('HandlerBuilder', () => {
 
                 const handler = builder.build();
                 const { req, res, next } = _getExpressObjects();
-                const ret = handler(req, res, next);
+                handler(req, res, next);
 
                 _asyncHelper
                     .wait(10)()
@@ -258,7 +258,7 @@ describe('HandlerBuilder', () => {
 
                 const handler = builder.build();
                 const { req, res, next } = _getExpressObjects();
-                const ret = handler(req, res, next);
+                handler(req, res, next);
 
                 _asyncHelper
                     .wait(10)()
@@ -278,7 +278,7 @@ describe('HandlerBuilder', () => {
 
                 expect(checkSchema).to.not.have.been.called;
 
-                const ret = handler(req, res, next);
+                handler(req, res, next);
 
                 _asyncHelper
                     .wait(10)()
@@ -307,7 +307,7 @@ describe('HandlerBuilder', () => {
 
                 expect(checkSchema).to.not.have.been.called;
 
-                const ret = handler(req, res, next);
+                handler(req, res, next);
 
                 _asyncHelper
                     .wait(10)()
@@ -329,7 +329,7 @@ describe('HandlerBuilder', () => {
 
                 const handler = builder.build();
                 const { req, res, next } = _getExpressObjects();
-                const ret = handler(req, res, next);
+                handler(req, res, next);
 
                 _asyncHelper
                     .wait(10)()
@@ -353,7 +353,7 @@ describe('HandlerBuilder', () => {
 
                 const handler = builder.build();
                 const { req, res, next } = _getExpressObjects();
-                const ret = handler(req, res, next);
+                handler(req, res, next);
 
                 _asyncHelper
                     .wait(10)()
@@ -387,7 +387,7 @@ describe('HandlerBuilder', () => {
 
                 const handler = builder.build();
                 const { req, res, next } = _getExpressObjects();
-                const ret = handler(req, res, next);
+                handler(req, res, next);
 
                 _asyncHelper
                     .wait(10)()
@@ -411,7 +411,7 @@ describe('HandlerBuilder', () => {
 
                 const handler = builder.build();
                 const { req, res, next } = _getExpressObjects();
-                const ret = handler(req, res, next);
+                handler(req, res, next);
 
                 _asyncHelper
                     .wait(10)()
