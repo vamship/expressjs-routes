@@ -226,6 +226,8 @@ module.exports = function(grunt) {
                     module: 'commonjs',
                     out: DOCS.path,
                     name: `${PROJECT.appName} Documentation`,
+                    ignoreCompilerErrors: true,
+                    ignorePrivate: true,
                     target: 'ES5'
                 },
                 src: [SRC.getAllFilesPattern('ts')]
