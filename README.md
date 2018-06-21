@@ -1,12 +1,14 @@
 # Express Routes
+
 _Enable declarative configuration and mounting of
 [expressjs](https://expressjs.com) routes._
 
-This library exposes classes and methods that allow the definition of expressjs 
+This library exposes classes and methods that allow the definition of expressjs
 routes as distinct processing steps, making it easy to test the individual steps,
 and also allowing for declarative route definitions for the server.
 
 ## Motivation
+
 When creating routes on a web server such as expressjs, it is advantageous from
 a testing and configuration perspective to split the processing of the http
 request into discrete blocks. When broken out in this way, each request can be
@@ -21,16 +23,17 @@ will be supported.
 
 This module takes the approach of breaking the processing pipeline into four
 distinct blocks:
-1. **Input Mapping**: Convert the raw HTTP request into a simple javascript
-   object that can be validated and processed by downstream blocks
-2. **Schema Validation**: This is an optional block that can be used to ensure
-   that the mapped input has the expected properties set on it.
-3. **Request Processing**: This accepts a javscript object from the input
-   mapping, and returns the response object that forms the response to the
-   client. The return from this block can also be a promise that eventually
-   resolves to the final response.
-4. **Output Mapping**: Convert the response from the request processing step
-   into an HTTP response that will be sent to the client.
+
+1.  **Input Mapping**: Convert the raw HTTP request into a simple javascript
+    object that can be validated and processed by downstream blocks
+2.  **Schema Validation**: This is an optional block that can be used to ensure
+    that the mapped input has the expected properties set on it.
+3.  **Request Processing**: This accepts a javscript object from the input
+    mapping, and returns the response object that forms the response to the
+    client. The return from this block can also be a promise that eventually
+    resolves to the final response.
+4.  **Output Mapping**: Convert the response from the request processing step
+    into an HTTP response that will be sent to the client.
 
 ## Installation
 
@@ -96,9 +99,8 @@ const handler = builder.build();
 
 const app = express();
 app.get('/:greeting/:name', handler);
-   
-    ...
 
+    ...
 ```
 
 ### Construct routers using declarative definitions
@@ -122,7 +124,7 @@ const routeDefinitions = [{
     },
     // No schema validation (not really a good idea)
     schema: undefined,
-    
+
     // Uses the default, which basically calls res.json(data);
     outputMapper: undefined
 }];
@@ -137,7 +139,6 @@ const router = buildRoutes(routeDefinitions);
 app.use('/greeting-api', router);
 
 ...
-
 ```
 
 ## A Note on Typescript
