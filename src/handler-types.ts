@@ -1,23 +1,59 @@
+/**
+ * @module root
+ */
 import { Promise } from 'bluebird';
 import { NextFunction, Request, Response } from 'express';
 
 /**
- * @module root
+ * Logger object that is provided to the handler for logging purposes.
  */
-
-// These are external to the module - should be exported from @vamship/logger
 export interface ILogger {
+    /**
+     * Logs trace level messages.
+     */
     trace: (...args: any[]) => void;
+
+    /**
+     * Logs debug level messages.
+     */
     debug: (...args: any[]) => void;
+
+    /**
+     * Logs info level messages.
+     */
     info: (...args: any[]) => void;
+
+    /**
+     * Logs warn level messages.
+     */
     warn: (...args: any[]) => void;
+
+    /**
+     * Logs error level messages.
+     */
     error: (...args: any[]) => void;
+
+    /**
+     * Logs fatal level messages.
+     */
     fatal: (...args: any[]) => void;
+
+    /**
+     * Creates a child logger with the given properties.
+     */
     child: (props: { [prop: string]: string }) => ILogger;
 }
 
 // These are external to the module - should be exported from @vamship/config
+/**
+ * Abstract interface for a config object.
+ */
 export interface IConfig {
+    /**
+     * Gets the value of a config property, for the current execution
+     * environment. The property name can be dot separated to identify nested
+     * values.
+     */
     get: (prop: string) => any;
 }
 
@@ -66,8 +102,9 @@ export interface IExtendedProperties {
 export type InputMapper = (req: Request) => {};
 
 /**
- * Input mapper function that receives the request from expressjs, and maps it
- * to an object that can be processed by the handler.
+ * Request processor function that accepts an input object, processes it, and
+ * returns the result. The result can be immediate or can be a promise to allow
+ * for asynchronous processing.
  *
  * @param input A parsed input object that can be handled by the handler
  * @param context A context object that contains metadata about the current

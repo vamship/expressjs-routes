@@ -1,3 +1,6 @@
+/**
+ * @module root
+ */
 import {
     argValidator as _argValidator,
     schemaHelper as _schemaHelper
@@ -7,20 +10,31 @@ import _loggerProvider from '@vamship/logger';
 import { Promise } from 'bluebird';
 import _dotProp from 'dot-prop';
 import { Handler, NextFunction, Request, Response } from 'express';
-import { InputMapper, OutputMapper, RequestHandler } from './handler-types';
-
-const DEFAULT_INPUT_MAPPER = () => ({});
-const DEFAULT_OUTPUT_MAPPER = (data: {}, res: Response) => res.json(data);
+import {
+    IInput,
+    InputMapper,
+    OutputMapper,
+    RequestHandler
+} from './handler-types';
 
 /**
  * Class that can be used to build HTTP request handlers for express js.
  * Breaks down requests into three distinct phases:
+ *
  * (1) Request mapping: Generate a JSON object from the incoming HTTP request
+ *
  * (2) Request processing: Process the JSON object and return a response
+ *
  * (3) Response mapping: Generate an HTTP response based on the JSON response
- * @module root
  */
 export default class HandlerBuilder {
+    private static DEFAULT_INPUT_MAPPER(): IInput {
+        return {};
+    }
+    private static DEFAULT_OUTPUT_MAPPER(data: any, res: Response) {
+        res.json(data);
+    }
+
     private _inputMapper: InputMapper;
     private _handler: RequestHandler;
     private _outputMapper: OutputMapper;
@@ -40,8 +54,8 @@ export default class HandlerBuilder {
         this._handler = handler;
         this._handlerName = handlerName;
         this._schema = undefined;
-        this._inputMapper = DEFAULT_INPUT_MAPPER;
-        this._outputMapper = DEFAULT_OUTPUT_MAPPER;
+        this._inputMapper = HandlerBuilder.DEFAULT_INPUT_MAPPER;
+        this._outputMapper = HandlerBuilder.DEFAULT_OUTPUT_MAPPER;
     }
 
     /**
