@@ -244,7 +244,7 @@ describe('HandlerBuilder', () => {
                     .then(() => {
                         expect(inputMapperMock).to.have.been.calledOnce;
                         expect(inputMapperMock).to.have.been.calledWithExactly(
-                            res
+                            req
                         );
                     })
                     .then(done, done);

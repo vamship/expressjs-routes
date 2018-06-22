@@ -65,7 +65,7 @@ export default class HandlerBuilder {
      * @return An expressjs request handler.
      */
     public build(): Handler {
-        const logger = _loggerProvider.getLogger({
+        const logger = _loggerProvider.getLogger('handler-builder', {
             request: this._handlerName
         });
         const config = _configProvider.getConfig();
@@ -80,7 +80,7 @@ export default class HandlerBuilder {
         return (req: Request, res: Response, next: NextFunction) => {
             Promise.try(() => {
                 logger.trace('Mapping request to input object');
-                const input = this._inputMapper(res);
+                const input = this._inputMapper(req);
 
                 logger.trace('Performing schema validation', { input });
                 schemaChecker(input, true);
