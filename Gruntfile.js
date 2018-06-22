@@ -224,7 +224,9 @@ module.exports = function(grunt) {
             default: {
                 options: {
                     module: 'commonjs',
-                    out: DOCS.path,
+                    out: DOCS.getFilePath(
+                        `${PROJECT.appName}/${PROJECT.version}`
+                    ),
                     name: `${PROJECT.appName} Documentation`,
                     ignoreCompilerErrors: true,
                     ignorePrivate: true,
