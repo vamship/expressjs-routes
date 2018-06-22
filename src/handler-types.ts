@@ -141,9 +141,11 @@ export type OutputMapper = (
 ) => any | Promise;
 
 /**
- * The standard definition for a route definition module. These modules can
- * be used to configure routes on expressjs, linking them to standard processing
- * flows that include input mapping, schema validation, request processing and
+ * The standard definition for a route definition module. Objects that conform
+ * to this interface can be used to define declarative routes for expressjs.
+ *
+ * These definitions can be leveraged by standardized routines that build actual
+ * routes that include input mapping, schema validation, request processing and
  * output mapping.
  */
 export interface IRouteDefinition {

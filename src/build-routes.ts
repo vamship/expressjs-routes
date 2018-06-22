@@ -12,7 +12,7 @@ import { IRouteDefinition } from './handler-types';
  * @param routes Route definitions for the routes that need to be mounted on the
  *        router.
  */
-export default (routes: IRouteDefinition[]): Router => {
+function buildRoutes(routes: IRouteDefinition[]): Router {
     const logger = _loggerProvider.getLogger('buildRoutes');
 
     logger.trace('Creating new router object');
@@ -54,4 +54,6 @@ export default (routes: IRouteDefinition[]): Router => {
     });
 
     return router;
-};
+}
+
+export default buildRoutes;
