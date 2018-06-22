@@ -7,6 +7,11 @@ This library exposes classes and methods that allow the definition of expressjs
 routes as distinct processing steps, making it easy to test the individual steps,
 and also allowing for declarative route definitions for the server.
 
+## API Documentation
+
+API documentation can be found
+[here](https://vamship.github.io/expressjs-routes).
+
 ## Motivation
 
 When creating routes on a web server such as expressjs, it is advantageous from
