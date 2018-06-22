@@ -64,9 +64,57 @@ describe('buildRoutes()', () => {
     });
 
     it('should return an express js router when invoked', () => {
-        const ret = buildRoutes([]);
+        const definitions = _createRouteDefinitions(10);
+        const ret = buildRoutes(definitions);
 
         expect(ret).to.equal(_RouterMock.instance);
+    });
+
+    it('should create an expressjs router object if no router was specified', () => {
+        const definitions = _createRouteDefinitions(10);
+        const routerCtor = _RouterMock.ctor;
+
+        expect(routerCtor).to.not.have.been.called;
+
+        buildRoutes(definitions);
+
+        expect(routerCtor).to.have.been.calledOnce;
+    });
+
+    it('should not create an expressjs router object if a router was specified', () => {
+        const definitions = _createRouteDefinitions(10);
+        const routerCtor = _RouterMock.ctor;
+
+        expect(routerCtor).to.not.have.been.called;
+
+        buildRoutes(definitions, _RouterMock.instance);
+
+        expect(routerCtor).to.not.have.been.called;
+    });
+
+    it('should not mount any routes on to the router if the route definition list is empty', () => {
+        const definitions = [];
+
+        const routerCtor = _RouterMock.ctor;
+        const setInputMapperMethod = _HandlerBuilderMock.mocks.setInputMapper;
+        const setSchemaMethod = _HandlerBuilderMock.mocks.setSchema;
+        const setOutputMapperMethod = _HandlerBuilderMock.mocks.setOutputMapper;
+
+        expect(routerCtor).to.not.have.been.called;
+        expect(_HandlerBuilderMock.ctor).to.not.have.been.called;
+        expect(setInputMapperMethod.stub).to.not.have.been.called;
+        expect(setSchemaMethod.stub).to.not.have.been.called;
+        expect(setOutputMapperMethod.stub).to.not.have.been.called;
+
+        const ret = buildRoutes(definitions);
+
+        expect(ret).to.equal(_RouterMock.instance);
+
+        expect(routerCtor).to.have.been.calledOnce;
+        expect(_HandlerBuilderMock.ctor).to.not.have.been.called;
+        expect(setInputMapperMethod.stub).to.not.have.been.called;
+        expect(setSchemaMethod.stub).to.not.have.been.called;
+        expect(setOutputMapperMethod.stub).to.not.have.been.called;
     });
 
     it('should create a handler builder object for each route definition', () => {

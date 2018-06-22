@@ -11,12 +11,14 @@ import { IRouteDefinition } from './handler-types';
  *
  * @param routes Route definitions for the routes that need to be mounted on the
  *        router.
+ * @param router An optional expressjs router object on to which the routes will
+ *        be mounted. If omitted, a new router will be created and used.
+ *
+ * @returns The configured router object, with the specified routes mounted on
+ *          to it.
  */
-function buildRoutes(routes: IRouteDefinition[]): Router {
+function buildRoutes(routes: IRouteDefinition[], router = Router()): Router {
     const logger = _loggerProvider.getLogger('buildRoutes');
-
-    logger.trace('Creating new router object');
-    const router = Router();
 
     logger.trace('Adding routes to router');
     routes.forEach((definition) => {
