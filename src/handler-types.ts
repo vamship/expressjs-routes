@@ -117,7 +117,7 @@ export type InputMapper = (req: Request) => {};
  *          be fulfilled before proceeding.
  */
 export type RequestHandler = (
-    input: IInput,
+    input: IInput & any,
     context: IContext,
     ext: IExtendedProperties
 ) => any | Promise;
