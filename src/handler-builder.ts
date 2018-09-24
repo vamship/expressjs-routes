@@ -65,9 +65,12 @@ export default class HandlerBuilder {
      * @return An expressjs request handler.
      */
     public build(): Handler {
-        const logger = _loggerProvider.getLogger('@vamship/expressjs-routes:handler-builder', {
-            request: this._handlerName
-        });
+        const logger = _loggerProvider.getLogger(
+            '@vamship/expressjs-routes:handler-builder',
+            {
+                request: this._handlerName
+            }
+        );
         const config = _configProvider.getConfig();
 
         const schemaChecker = this._schema
