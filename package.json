@@ -6,7 +6,7 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "prepack": "gulp --series clean lint format build test-unit",
-        "all": "gulp --series format lint test-unit clean",
+        "all": "gulp --series format lint build test-unit clean",
         "test": "gulp test-unit"
     },
     "repository": {
