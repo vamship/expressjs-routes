@@ -11,32 +11,32 @@ export interface ILogger {
     /**
      * Logs trace level messages.
      */
-    trace: (...args: any[]) => void;
+    trace: (...args: unknown[]) => void;
 
     /**
      * Logs debug level messages.
      */
-    debug: (...args: any[]) => void;
+    debug: (...args: unknown[]) => void;
 
     /**
      * Logs info level messages.
      */
-    info: (...args: any[]) => void;
+    info: (...args: unknown[]) => void;
 
     /**
      * Logs warn level messages.
      */
-    warn: (...args: any[]) => void;
+    warn: (...args: unknown[]) => void;
 
     /**
      * Logs error level messages.
      */
-    error: (...args: any[]) => void;
+    error: (...args: unknown[]) => void;
 
     /**
      * Logs fatal level messages.
      */
-    fatal: (...args: any[]) => void;
+    fatal: (...args: unknown[]) => void;
 
     /**
      * Creates a child logger with the given properties.
@@ -54,7 +54,7 @@ export interface IConfig {
      * environment. The property name can be dot separated to identify nested
      * values.
      */
-    get: (prop: string) => any;
+    get: (prop: string) => unknown;
 }
 
 /**
@@ -62,14 +62,14 @@ export interface IConfig {
  * handler. This object is reserved for future use.
  */
 export interface IContext {
-    [prop: string]: any;
+    [prop: string]: unknown;
 }
 
 /**
  * The input to the request handler function.
  */
 export interface IInput {
-    [prop: string]: any;
+    [prop: string]: unknown;
 }
 
 /**
@@ -117,10 +117,10 @@ export type InputMapper = (req: Request) => {};
  *          be fulfilled before proceeding.
  */
 export type RequestHandler = (
-    input: IInput & any,
+    input: IInput,
     context: IContext,
     ext: IExtendedProperties
-) => any | Promise;
+) => Promise;
 
 /**
  * An output mapper function that takes the output from the handler, and turns
@@ -134,11 +134,11 @@ export type RequestHandler = (
  */
 export type OutputMapper = (
     data: {
-        [prop: string]: any;
+        [prop: string]: unknown;
     },
     res: Response,
     next: NextFunction
-) => any | Promise;
+) => Promise;
 
 /**
  * The standard definition for a route definition module. Objects that conform

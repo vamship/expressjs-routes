@@ -6,6 +6,8 @@ import _sinon from 'sinon';
 import _sinonChai from 'sinon-chai';
 import { mockReq, mockRes } from 'sinon-express-mock';
 
+import { SinonSpy } from 'sinon';
+
 _chai.use(_chaiAsPromised);
 _chai.use(_sinonChai);
 const expect = _chai.expect;
@@ -20,16 +22,22 @@ import {
 
 const _handlerBuilderModule = _rewire('../../src/handler-builder');
 const HandlerBuilder = _handlerBuilderModule.default;
+type HandlerBuilderType = typeof HandlerBuilder;
 
 describe('HandlerBuilder', () => {
-    function _createInstance(handlerName?: string, handler?: () => {}) {
+    function _createInstance(
+        handlerName?: string,
+        handler?: () => {}
+    ): HandlerBuilderType {
         const hName: string =
             handlerName || _testValues.getString('handlerName');
         const handlerRef: () => {} = handler || _sinon.spy();
         return new HandlerBuilder(hName, handlerRef);
     }
 
-    function _getExpressObjects(data?: object) {
+    function _getExpressObjects(
+        data?: object
+    ): { req: {}; res: {}; next: Function } {
         const reqData: object = data || {};
         return {
             req: mockReq(reqData),
@@ -85,8 +93,8 @@ describe('HandlerBuilder', () => {
     describe('ctor()', () => {
         it('should throw an error if invoked without a valid handler name', () => {
             const message = 'handlerName cannot be empty (arg #1)';
-            const wrapper = () => {
-                const handler = () => ({});
+            const wrapper = (): HandlerBuilderType => {
+                const handler = (): {} => ({});
                 return new HandlerBuilder('', handler);
             };
 
@@ -95,7 +103,7 @@ describe('HandlerBuilder', () => {
 
         it('should expose the expected properties and methods', () => {
             const handlerName = _testValues.getString('handlerName');
-            const handler = () => ({});
+            const handler = (): {} => ({});
 
             const builder = new HandlerBuilder(handlerName, handler);
             expect(builder.setInputMapper).to.be.a('function');
@@ -107,16 +115,16 @@ describe('HandlerBuilder', () => {
 
     describe('setInputMapper()', () => {
         it('should return a reference to the builder object', () => {
-            const builder = _createInstance() as any;
-            const inputMapper = () => _sinon.spy();
+            const builder = _createInstance();
+            const inputMapper = (): SinonSpy => _sinon.spy();
 
             const ret = builder.setInputMapper(inputMapper);
             expect(ret).to.equal(builder);
         });
 
         it('should use the arg as the input mapper if a function is provided', () => {
-            const builder = _createInstance() as any;
-            const inputMapper = () => _sinon.spy();
+            const builder = _createInstance();
+            const inputMapper = (): SinonSpy => _sinon.spy();
 
             expect(builder._inputMapper).to.not.equal(inputMapper);
             builder.setInputMapper(inputMapper);
@@ -134,7 +142,7 @@ describe('HandlerBuilder', () => {
 
         describe('[generated mapper behavior]', () => {
             it('should map properties from the request params', () => {
-                const builder = _createInstance() as any;
+                const builder = _createInstance();
                 builder.setInputMapper({
                     'data.name': 'params.name',
                     'data.language': 'params.language'
@@ -158,7 +166,7 @@ describe('HandlerBuilder', () => {
             });
 
             it('should map properties from the request body', () => {
-                const builder = _createInstance() as any;
+                const builder = _createInstance();
                 builder.setInputMapper({
                     'data.name': 'body.name',
                     'data.language': 'body.language'
@@ -193,7 +201,7 @@ describe('HandlerBuilder', () => {
         });
 
         it('should use the specified schema object as the schema for the builder', () => {
-            const builder = _createInstance() as any;
+            const builder = _createInstance();
             const schemaMock = {};
 
             expect(builder._schema).to.not.equal(schemaMock);
@@ -212,7 +220,7 @@ describe('HandlerBuilder', () => {
         });
 
         it('should use the specified output mapper as the output mapper for the builder', () => {
-            const builder = _createInstance() as any;
+            const builder = _createInstance();
             const outputMapperMock = _sinon.spy();
 
             expect(builder._outputMapper).to.not.equal(outputMapperMock);

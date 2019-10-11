@@ -18,12 +18,15 @@ const buildRoutes = _buildRoutesModule.default;
 const HTTP_METHODS = ['get', 'put', 'post', 'delete'];
 
 describe('buildRoutes()', () => {
-    function _createRouteDefinitions(count = 1, options?: {}) {
+    function _createRouteDefinitions(
+        count = 1,
+        options?: {}
+    ): IRouteDefinition[] {
         const routes: IRouteDefinition[] = [];
 
         for (let index = 0; index < count; index++) {
             routes.push(
-                (Object as any).assign(
+                Object.assign(
                     {
                         method: HTTP_METHODS[index % HTTP_METHODS.length],
                         path: `/${_testValues.getString(

@@ -31,7 +31,7 @@ export default class HandlerBuilder {
     private static DEFAULT_INPUT_MAPPER(): IInput {
         return {};
     }
-    private static DEFAULT_OUTPUT_MAPPER(data: any, res: Response) {
+    private static DEFAULT_OUTPUT_MAPPER(data: unknown, res: Response): void {
         res.json(data);
     }
 
@@ -75,12 +75,16 @@ export default class HandlerBuilder {
 
         const schemaChecker = this._schema
             ? _schemaHelper.createSchemaChecker(this._schema)
-            : () => {
+            : (): boolean => {
                   logger.trace('No schema validations required');
                   return true;
               };
 
-        return (req: Request, res: Response, next: NextFunction) => {
+        return (
+            req: Request,
+            res: Response,
+            next: NextFunction
+        ): Promise<void> => {
             Promise.try(() => {
                 logger.trace('Mapping request to input object');
                 const input = this._inputMapper(req);
@@ -127,7 +131,7 @@ export default class HandlerBuilder {
         if (typeof mapping === 'function') {
             this._inputMapper = mapping;
         } else {
-            this._inputMapper = (req: Request) => {
+            this._inputMapper = (req: Request): {} => {
                 return Object.keys(mapping).reduce((result, prop) => {
                     const path = mapping[prop];
                     const value = _dotProp.get(req, path);
