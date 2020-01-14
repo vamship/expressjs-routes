@@ -41,7 +41,6 @@
         "tslint": "^5.20.1",
         "tslint-no-unused-expression-chai": "^0.1.4",
         "typedoc": "^0.16.2",
-        "typedoc-plugin-external-module-name": "^2.1.0",
         "typescript": "^3.7.4"
     },
     "dependencies": {
