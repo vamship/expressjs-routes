@@ -30,12 +30,16 @@
         "@types/sinon-chai": "^3.2.3",
         "@vamship/arg-utils": "^2.4.5",
         "@vamship/build-utils": "0.1.1",
+        "@vamship/config": "^1.4.5",
         "@vamship/error-types": "^1.7.7",
+        "@vamship/logger": "^4.2.5",
         "@vamship/test-utils": "^2.4.8",
         "ansi-colors": "^4.1.1",
+        "bluebird": "^3.7.2",
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1",
         "eslint": "^6.8.0",
+        "express": "^4.17.1",
         "gulp": "^4.0.2",
         "gulp-typedoc": "^2.2.4",
         "mocha": "^7.0.0",
@@ -50,12 +54,12 @@
         "typescript": "^3.7.4"
     },
     "dependencies": {
-        "@vamship/config": "^1.4.5",
-        "@vamship/logger": "^4.2.5",
-        "dot-prop": "^5.2.0",
-        "express": "^4.17.1"
+        "dot-prop": "^5.2.0"
     },
     "peerDependencies": {
+        "@vamship/config": "^1.4.5",
+        "@vamship/logger": "^4.2.5",
+        "bluebird": "^3.7.2",
         "express": "^4.17.1"
     },
     "buildMetadata": {
