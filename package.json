@@ -8,6 +8,7 @@
         "all": "gulp --series format lint build test-unit clean",
         "test": "gulp test-unit"
     },
+    "files": ["package.json", "LICENSE", "README.md", "src/**/*"],
     "repository": {
         "type": "git",
         "url": "https://github.com/typscript-template-repo"
