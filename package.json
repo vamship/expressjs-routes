@@ -1,6 +1,6 @@
 {
     "name": "@vamship/expressjs-routes",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "description": "Enable declarative configuration and mounting of expressjs routes",
     "main": "src/index.js",
     "types": "src/index.d.ts",
