@@ -120,7 +120,9 @@ export type RequestHandler = (
     input: IInput,
     context: IContext,
     ext: IExtendedProperties
-) => Promise;
+) => // eslint-disable-next-line @typescript-eslint/no-explicit-any
+Promise<any>;
+
 
 /**
  * An output mapper function that takes the output from the handler, and turns
@@ -138,7 +140,8 @@ export type OutputMapper = (
     },
     res: Response,
     next: NextFunction
-) => Promise;
+) => // eslint-disable-next-line @typescript-eslint/no-explicit-any
+Promise<any>;
 
 /**
  * The standard definition for a route definition module. Objects that conform
