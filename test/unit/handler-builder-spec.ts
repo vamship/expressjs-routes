@@ -17,7 +17,7 @@ import { ArgError } from '@vamship/error-types';
 import {
     asyncHelper as _asyncHelper,
     ObjectMock,
-    testValues as _testValues
+    testValues as _testValues,
 } from '@vamship/test-utils';
 
 const _handlerBuilderModule = _rewire('../../src/handler-builder');
@@ -42,7 +42,7 @@ describe('HandlerBuilder', () => {
         return {
             req: mockReq(reqData),
             res: mockRes(),
-            next: _sinon.stub()
+            next: _sinon.stub(),
         };
     }
 
@@ -67,7 +67,7 @@ describe('HandlerBuilder', () => {
         });
 
         const config = {
-            get: _sinon.stub()
+            get: _sinon.stub(),
         };
         _configProviderMock = new ObjectMock().addMock('getConfig', config);
         _configProviderMock.__config = config;
@@ -83,10 +83,10 @@ describe('HandlerBuilder', () => {
 
         _argUtils.schemaHelper = _schemaHelperMock.instance;
         _handlerBuilderModule.__set__('config_1', {
-            default: _configProviderMock.instance
+            default: _configProviderMock.instance,
         });
         _handlerBuilderModule.__set__('logger_1', {
-            default: _loggerProviderMock.instance
+            default: _loggerProviderMock.instance,
         });
     });
 
@@ -135,7 +135,7 @@ describe('HandlerBuilder', () => {
             const builder = _createInstance();
             builder.setInputMapper({
                 'data.name': 'params.name',
-                'data.language': 'body.lang'
+                'data.language': 'body.lang',
             });
             expect(builder._inputMapper).to.be.a('function');
         });
@@ -145,23 +145,23 @@ describe('HandlerBuilder', () => {
                 const builder = _createInstance();
                 builder.setInputMapper({
                     'data.name': 'params.name',
-                    'data.language': 'params.language'
+                    'data.language': 'params.language',
                 });
 
                 const params = {
                     name: _testValues.getString('name'),
-                    language: _testValues.getString('language')
+                    language: _testValues.getString('language'),
                 };
                 const { req } = _getExpressObjects({
-                    params
+                    params,
                 });
                 const input = builder._inputMapper(req);
 
                 expect(input).to.deep.equal({
                     data: {
                         name: params.name,
-                        language: params.language
-                    }
+                        language: params.language,
+                    },
                 });
             });
 
@@ -169,23 +169,23 @@ describe('HandlerBuilder', () => {
                 const builder = _createInstance();
                 builder.setInputMapper({
                     'data.name': 'body.name',
-                    'data.language': 'body.language'
+                    'data.language': 'body.language',
                 });
 
                 const body = {
                     name: _testValues.getString('name'),
-                    language: _testValues.getString('language')
+                    language: _testValues.getString('language'),
                 };
                 const { req } = _getExpressObjects({
-                    body
+                    body,
                 });
                 const input = builder._inputMapper(req);
 
                 expect(input).to.deep.equal({
                     data: {
                         name: body.name,
-                        language: body.language
-                    }
+                        language: body.language,
+                    },
                 });
             });
         });
@@ -300,7 +300,7 @@ describe('HandlerBuilder', () => {
                 const builder = _createInstance();
                 const expectedInput = {
                     foo: _testValues.getString('foo'),
-                    bar: _testValues.getString('bar')
+                    bar: _testValues.getString('bar'),
                 };
                 const inputMapperMock = _sinon.stub().returns(expectedInput);
                 const schema = {};
@@ -354,7 +354,7 @@ describe('HandlerBuilder', () => {
 
                 const expectedInput = {
                     foo: _testValues.getString('foo'),
-                    bar: _testValues.getString('bar')
+                    bar: _testValues.getString('bar'),
                 };
                 const inputMapperMock = _sinon.stub().returns(expectedInput);
                 builder.setInputMapper(inputMapperMock);
@@ -409,7 +409,7 @@ describe('HandlerBuilder', () => {
             it('should invoke the output mapper with the result of the request processor', (done) => {
                 const processingResult = {
                     foo: _testValues.getString('foo'),
-                    bar: _testValues.getString('bar')
+                    bar: _testValues.getString('bar'),
                 };
                 const reqHandler = _sinon.stub().returns(processingResult);
                 const builder = _createInstance(undefined, reqHandler);

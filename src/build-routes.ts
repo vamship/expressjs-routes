@@ -28,12 +28,12 @@ function buildRoutes(routes: IRouteDefinition[], router = Router()): Router {
             handler,
             inputMapper,
             schema,
-            outputMapper
+            outputMapper,
         } = definition;
 
         const handlerName = `${method} ${path}`;
         const builderLogger = logger.child({
-            route: handlerName
+            route: handlerName,
         });
 
         builderLogger.trace('Creating route builder');

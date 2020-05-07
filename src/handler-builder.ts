@@ -3,7 +3,7 @@
  */
 import {
     argValidator as _argValidator,
-    schemaHelper as _schemaHelper
+    schemaHelper as _schemaHelper,
 } from '@vamship/arg-utils';
 import _configProvider from '@vamship/config';
 import _loggerProvider from '@vamship/logger';
@@ -14,7 +14,7 @@ import {
     IInput,
     InputMapper,
     OutputMapper,
-    RequestHandler
+    RequestHandler,
 } from './handler-types';
 
 /**
@@ -68,7 +68,7 @@ export default class HandlerBuilder {
         const logger = _loggerProvider.getLogger(
             '@vamship/expressjs-routes:handler-builder',
             {
-                request: this._handlerName
+                request: this._handlerName,
             }
         );
         const config = _configProvider.getConfig();
@@ -99,7 +99,7 @@ export default class HandlerBuilder {
                     {
                         logger,
                         config,
-                        alias: process.env.NODE_ENV || 'default'
+                        alias: process.env.NODE_ENV || 'default',
                     }
                 );
             })

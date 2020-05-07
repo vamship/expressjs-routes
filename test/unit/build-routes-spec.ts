@@ -35,7 +35,7 @@ describe('buildRoutes()', () => {
                         inputMapper: _sinon.stub().returns({}),
                         schema: {},
                         outputMapper: _sinon.spy(),
-                        handler: _sinon.stub().returns({})
+                        handler: _sinon.stub().returns({}),
                     },
                     options
                 )
@@ -59,10 +59,10 @@ describe('buildRoutes()', () => {
         _HandlerBuilderMock.__route = _sinon.stub();
 
         _buildRoutesModule.__set__('express_1', {
-            Router: _RouterMock.ctor
+            Router: _RouterMock.ctor,
         });
         _buildRoutesModule.__set__('handler_builder_1', {
-            default: _HandlerBuilderMock.ctor
+            default: _HandlerBuilderMock.ctor,
         });
     });
 
@@ -174,7 +174,7 @@ describe('buildRoutes()', () => {
     it('should not set the schema on the builder if the none was specified', () => {
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount, {
-            schema: null
+            schema: null,
         });
         const setSchemaMethod = _HandlerBuilderMock.mocks.setSchema;
 
@@ -205,7 +205,7 @@ describe('buildRoutes()', () => {
     it('should not set the outputMapper on the builder if the none was specified', () => {
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount, {
-            outputMapper: null
+            outputMapper: null,
         });
         const setOutputMapperMethod = _HandlerBuilderMock.mocks.setOutputMapper;
 
