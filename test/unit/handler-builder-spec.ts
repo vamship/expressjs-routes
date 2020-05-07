@@ -48,7 +48,6 @@ describe('HandlerBuilder', () => {
 
     let _schemaHelperMock;
     let _loggerProviderMock;
-    let _configProviderMock;
 
     beforeEach(() => {
         _schemaHelperMock = new ObjectMock().addMock(
@@ -66,12 +65,6 @@ describe('HandlerBuilder', () => {
             return true;
         });
 
-        const config = {
-            get: _sinon.stub(),
-        };
-        _configProviderMock = new ObjectMock().addMock('getConfig', config);
-        _configProviderMock.__config = config;
-
         const logger = {};
         ['trace', 'debug', 'info', 'warn', 'fatal', 'child'].forEach(
             (method) => {
@@ -81,13 +74,11 @@ describe('HandlerBuilder', () => {
         _loggerProviderMock = new ObjectMock().addMock('getLogger', logger);
         _loggerProviderMock.__logger = logger;
 
-        _argUtils.schemaHelper = _schemaHelperMock.instance;
-        _handlerBuilderModule.__set__('config_1', {
-            default: _configProviderMock.instance,
-        });
         _handlerBuilderModule.__set__('logger_1', {
             default: _loggerProviderMock.instance,
         });
+
+        _argUtils.schemaHelper = _schemaHelperMock.instance;
     });
 
     describe('ctor()', () => {
@@ -378,9 +369,6 @@ describe('HandlerBuilder', () => {
                         expect(ext).to.be.an('object');
                         expect(ext.logger).to.equal(
                             _loggerProviderMock.__logger
-                        );
-                        expect(ext.config).to.equal(
-                            _configProviderMock.__config
                         );
                         expect(ext.alias).to.be.a('string').and.to.not.be.empty;
                     })

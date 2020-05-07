@@ -5,7 +5,6 @@ import {
     argValidator as _argValidator,
     schemaHelper as _schemaHelper,
 } from '@vamship/arg-utils';
-import _configProvider from '@vamship/config';
 import _loggerProvider from '@vamship/logger';
 import { Promise } from 'bluebird';
 import _dotProp from 'dot-prop';
@@ -71,7 +70,6 @@ export default class HandlerBuilder {
                 request: this._handlerName,
             }
         );
-        const config = _configProvider.getConfig();
 
         const schemaChecker = this._schema
             ? _schemaHelper.createSchemaChecker(this._schema)
@@ -98,7 +96,6 @@ export default class HandlerBuilder {
                     {},
                     {
                         logger,
-                        config,
                         alias: process.env.NODE_ENV || 'default',
                     }
                 );

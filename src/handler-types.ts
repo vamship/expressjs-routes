@@ -44,19 +44,6 @@ export interface ILogger {
     child: (props: { [prop: string]: string }) => ILogger;
 }
 
-// These are external to the module - should be exported from @vamship/config
-/**
- * Abstract interface for a config object.
- */
-export interface IConfig {
-    /**
-     * Gets the value of a config property, for the current execution
-     * environment. The property name can be dot separated to identify nested
-     * values.
-     */
-    get: (prop: string) => unknown;
-}
-
 /**
  * A context object that provides information on the execution context of the
  * handler. This object is reserved for future use.
@@ -80,11 +67,6 @@ export interface IExtendedProperties {
      * Reference to an initialized logger object
      */
     logger: ILogger;
-
-    /**
-     * Reference to a config object for the current application.
-     */
-    config: IConfig;
 
     /**
      * An alias string that defines the current execution environment.
