@@ -66,7 +66,7 @@ describe('HandlerBuilder', () => {
         });
 
         const logger = {};
-        ['trace', 'debug', 'info', 'warn', 'fatal', 'child'].forEach(
+        ['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'child'].forEach(
             (method) => {
                 logger[method] = _sinon.spy();
             }
@@ -365,7 +365,11 @@ describe('HandlerBuilder', () => {
                         const ext = reqHandler.args[0][2];
 
                         expect(input).to.deep.equal(expectedInput);
-                        expect(context).to.deep.equal({});
+
+                        expect(context).to.be.an('object');
+                        expect(context.requestId).to.be.a('string').and.to.not
+                            .be.empty;
+
                         expect(ext).to.be.an('object');
                         expect(ext.logger).to.equal(
                             _loggerProviderMock.__logger

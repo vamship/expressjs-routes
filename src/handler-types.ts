@@ -49,7 +49,11 @@ export interface ILogger {
  * handler. This object is reserved for future use.
  */
 export interface IContext {
-    [prop: string]: unknown;
+    /**
+     * A unique request id that can be used to correlate log messages and the
+     * like. Generated for every request.
+     */
+    requestId: string;
 }
 
 /**

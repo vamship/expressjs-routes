@@ -64,47 +64,59 @@ export default class HandlerBuilder {
      * @return An expressjs request handler.
      */
     public build(): Handler {
-        const logger = _loggerProvider.getLogger(
-            '@vamship/expressjs-routes:handler-builder',
-            {
-                request: this._handlerName,
-            }
-        );
-
         const schemaChecker = this._schema
             ? _schemaHelper.createSchemaChecker(this._schema)
-            : (): boolean => {
-                  logger.trace('No schema validations required');
-                  return true;
-              };
+            : (): boolean => true;
 
         return (
             req: Request,
             res: Response,
             next: NextFunction
         ): Promise<void> => {
+            const requestId = Math.random().toString(36).substring(2, 15);
+
+            const logger = _loggerProvider.getLogger(
+                `handler:${this._handlerName}`,
+                {
+                    requestId,
+                }
+            );
             Promise.try(() => {
-                logger.trace('Mapping request to input object');
+                logger.info('HANDLER START');
+                logger.info('Mapping request to input');
                 const input = this._inputMapper(req);
 
-                logger.trace('Performing schema validation', { input });
-                schemaChecker(input, true);
+                logger.trace({ input }, 'Handler input');
 
-                logger.trace('Invoking handler', { input });
+                if (this._schema) {
+                    logger.info('Validating input schema');
+                    schemaChecker(input, true);
+                } else {
+                    logger.info(
+                        'No schema specified. Skipping schema validation'
+                    );
+                }
+
+                logger.info('Executing handler');
                 return this._handler(
                     input,
-                    {},
+                    {
+                        requestId,
+                    },
                     {
                         logger,
                         alias: process.env.NODE_ENV || 'default',
                     }
                 );
             })
-                .then((data) => {
-                    logger.trace('Handler execution completed', { data });
-                    return this._outputMapper(data, res, next);
+                .then((output) => {
+                    logger.trace({ output }, 'Handler output');
+                    logger.info('HANDLER END');
+                    return this._outputMapper(output, res, next);
                 })
                 .catch((ex) => {
+                    logger.error(ex, 'Error executing handler');
+                    logger.info('HANDLER END');
                     next(ex);
                 });
         };
