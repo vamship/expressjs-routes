@@ -31,7 +31,7 @@
         "@vamship/arg-utils": "^2.4.7",
         "@vamship/build-utils": "0.3.2",
         "@vamship/error-types": "^1.7.9",
-        "@vamship/logger": "^4.2.7",
+        "@vamship/logger": "^4.3.0",
         "@vamship/test-utils": "^2.4.10",
         "ansi-colors": "^4.1.1",
         "bluebird": "^3.7.2",
@@ -56,7 +56,7 @@
         "dot-prop": "^5.2.0"
     },
     "peerDependencies": {
-        "@vamship/logger": "^4.2.7",
+        "@vamship/logger": "^4.3.0",
         "bluebird": "^3.7.2",
         "express": "^4.17.1"
     },
