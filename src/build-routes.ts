@@ -23,6 +23,7 @@ function buildRoutes(routes: IRouteDefinition[], router = Router()): Router {
     logger.trace('Adding routes to router');
     routes.forEach((definition) => {
         const {
+            name,
             method,
             path,
             handler,
@@ -31,7 +32,7 @@ function buildRoutes(routes: IRouteDefinition[], router = Router()): Router {
             outputMapper,
         } = definition;
 
-        const handlerName = `${method} ${path}`;
+        const handlerName = name ? name : `${method} ${path}`;
         const builderLogger = logger.child({
             route: handlerName,
         });

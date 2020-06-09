@@ -28,6 +28,7 @@ describe('buildRoutes()', () => {
             routes.push(
                 Object.assign(
                     {
+                        name: _testValues.getString('handlerName'),
                         method: HTTP_METHODS[index % HTTP_METHODS.length],
                         path: `/${_testValues.getString(
                             'foo'
@@ -122,6 +123,29 @@ describe('buildRoutes()', () => {
 
     it('should create a handler builder object for each route definition', () => {
         const routeCount = 10;
+        const definitions = _createRouteDefinitions(routeCount).map(
+            (definition) => {
+                delete definition['name'];
+                return definition;
+            }
+        );
+
+        expect(_HandlerBuilderMock.ctor).to.not.have.been.called;
+
+        buildRoutes(definitions);
+
+        expect(_HandlerBuilderMock.ctor.callCount).to.equal(routeCount);
+
+        definitions.forEach((definition, index) => {
+            const { method, path, handler } = definition;
+            const name = `${method} ${path}`;
+            const call = _HandlerBuilderMock.ctor.getCall(index);
+            expect(call).to.be.calledWithExactly(name, handler);
+        });
+    });
+
+    it('should use the handler name if one is specified in the request definition', () => {
+        const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount);
 
         expect(_HandlerBuilderMock.ctor).to.not.have.been.called;
@@ -130,8 +154,8 @@ describe('buildRoutes()', () => {
 
         expect(_HandlerBuilderMock.ctor.callCount).to.equal(routeCount);
 
-        definitions.forEach(({ method, path, handler }, index) => {
-            const name = `${method} ${path}`;
+        definitions.forEach((definition, index) => {
+            const { name, handler } = definition;
             const call = _HandlerBuilderMock.ctor.getCall(index);
             expect(call).to.be.calledWithExactly(name, handler);
         });

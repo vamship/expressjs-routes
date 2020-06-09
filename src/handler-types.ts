@@ -136,6 +136,11 @@ export type OutputMapper = (
  */
 export interface IRouteDefinition {
     /**
+     * An optional name for the handler.
+     */
+    name?: string;
+
+    /**
      * The HTTP method to apply to the route
      */
     method: string;
