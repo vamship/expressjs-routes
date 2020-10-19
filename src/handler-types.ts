@@ -85,7 +85,7 @@ export interface IExtendedProperties {
  * @param req The expressjs request object.
  * @returns An object that is passed to the handler function for processing.
  */
-export type InputMapper = (req: Request) => {};
+export type InputMapper = (req: Request) => Record<string, unknown>;
 
 /**
  * Request processor function that accepts an input object, processes it, and
@@ -171,5 +171,5 @@ export interface IRouteDefinition {
      * An optional schema to validate requests after the input mapper has mapped
      * the HTTP request to the input object.
      */
-    schema?: {};
+    schema?: Record<string, unknown>;
 }

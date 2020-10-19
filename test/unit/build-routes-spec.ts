@@ -20,7 +20,7 @@ const HTTP_METHODS = ['get', 'put', 'post', 'delete'];
 describe('buildRoutes()', () => {
     function _createRouteDefinitions(
         count = 1,
-        options?: {}
+        options?: Record<string, unknown>
     ): IRouteDefinition[] {
         const routes: IRouteDefinition[] = [];
 

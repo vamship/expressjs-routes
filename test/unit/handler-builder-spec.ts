@@ -27,18 +27,23 @@ type HandlerBuilderType = typeof HandlerBuilder;
 describe('HandlerBuilder', () => {
     function _createInstance(
         handlerName?: string,
-        handler?: () => {}
+        handler?: () => Record<string, unknown>
     ): HandlerBuilderType {
         const hName: string =
             handlerName || _testValues.getString('handlerName');
-        const handlerRef: () => {} = handler || _sinon.spy();
+        const handlerRef: () => Record<string, unknown> =
+            handler || _sinon.spy();
         return new HandlerBuilder(hName, handlerRef);
     }
 
     function _getExpressObjects(
-        data?: object
-    ): { req: {}; res: {}; next: Function } {
-        const reqData: object = data || {};
+        data?: Record<string, unknown>
+    ): {
+        req: Record<string, unknown>;
+        res: Record<string, unknown>;
+        next: () => void;
+    } {
+        const reqData: Record<string, unknown> = data || {};
         return {
             req: mockReq(reqData),
             res: mockRes(),
@@ -85,7 +90,7 @@ describe('HandlerBuilder', () => {
         it('should throw an error if invoked without a valid handler name', () => {
             const message = 'handlerName cannot be empty (arg #1)';
             const wrapper = (): HandlerBuilderType => {
-                const handler = (): {} => ({});
+                const handler = (): Record<string, unknown> => ({});
                 return new HandlerBuilder('', handler);
             };
 
@@ -94,7 +99,7 @@ describe('HandlerBuilder', () => {
 
         it('should expose the expected properties and methods', () => {
             const handlerName = _testValues.getString('handlerName');
-            const handler = (): {} => ({});
+            const handler = (): Record<string, unknown> => ({});
 
             const builder = new HandlerBuilder(handlerName, handler);
             expect(builder.setInputMapper).to.be.a('function');

@@ -38,7 +38,7 @@ export default class HandlerBuilder {
     private _handler: RequestHandler;
     private _outputMapper: OutputMapper;
     private _handlerName: string;
-    private _schema?: {};
+    private _schema?: Record<string, unknown>;
 
     /**
      * @param handler The request handler function
@@ -140,7 +140,7 @@ export default class HandlerBuilder {
         if (typeof mapping === 'function') {
             this._inputMapper = mapping;
         } else {
-            this._inputMapper = (req: Request): {} => {
+            this._inputMapper = (req: Request): Record<string, unknown> => {
                 return Object.keys(mapping).reduce((result, prop) => {
                     const path = mapping[prop];
                     const value = _dotProp.get(req, path);
@@ -161,7 +161,7 @@ export default class HandlerBuilder {
      * @returns A reference to the handler builder, to be used for function
      *          chaining.
      */
-    public setSchema(schema: {}): HandlerBuilder {
+    public setSchema(schema: Record<string, unknown>): HandlerBuilder {
         this._schema = schema;
         return this;
     }
