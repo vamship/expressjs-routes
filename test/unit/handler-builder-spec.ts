@@ -36,9 +36,7 @@ describe('HandlerBuilder', () => {
         return new HandlerBuilder(hName, handlerRef);
     }
 
-    function _getExpressObjects(
-        data?: Record<string, unknown>
-    ): {
+    function _getExpressObjects(data?: Record<string, unknown>): {
         req: Record<string, unknown>;
         res: Record<string, unknown>;
         next: () => void;
