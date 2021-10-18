@@ -28,12 +28,11 @@
         "@types/node": "^16.11.1",
         "@types/sinon": "^10.0.4",
         "@types/sinon-chai": "^3.2.5",
-        "@typescript-eslint/experimental-utils": "^5.0.0",
-        "@vamship/arg-utils": "^2.4.15",
-        "@vamship/build-utils": "1.0.1",
-        "@vamship/error-types": "^1.7.17",
-        "@vamship/logger": "^4.3.7",
-        "@vamship/test-utils": "^2.5.5",
+        "@vamship/arg-utils": "^2.4.16",
+        "@vamship/build-utils": "1.0.2",
+        "@vamship/error-types": "^1.7.18",
+        "@vamship/logger": "^4.3.8",
+        "@vamship/test-utils": "^2.5.6",
         "chai": "^4.3.4",
         "chai-as-promised": "^7.1.1",
         "express": "^4.17.1",
@@ -50,7 +49,7 @@
         "dot-prop": "^6.0.1"
     },
     "peerDependencies": {
-        "@vamship/logger": "^4.3.7",
+        "@vamship/logger": "^4.3.8",
         "bluebird": "^3.7.2",
         "express": "^4.17.1"
     },
