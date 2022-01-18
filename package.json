@@ -22,36 +22,36 @@
     "author": "typescript-template-author",
     "license": "MIT",
     "devDependencies": {
-        "@types/chai": "^4.2.22",
+        "@types/chai": "^4.3.0",
         "@types/chai-as-promised": "^7.1.4",
         "@types/mocha": "^9.0.0",
-        "@types/node": "^16.11.7",
+        "@types/node": "^17.0.10",
         "@types/sinon": "^10.0.6",
-        "@types/sinon-chai": "^3.2.5",
-        "@vamship/arg-utils": "^2.4.18",
-        "@vamship/build-utils": "1.0.4",
-        "@vamship/error-types": "^1.7.19",
-        "@vamship/logger": "^4.3.9",
-        "@vamship/test-utils": "^2.5.7",
+        "@types/sinon-chai": "^3.2.8",
+        "@vamship/arg-utils": "^2.4.19",
+        "@vamship/build-utils": "1.1.0",
+        "@vamship/error-types": "^1.7.20",
+        "@vamship/logger": "^4.3.11",
+        "@vamship/test-utils": "^2.5.8",
         "chai": "^4.3.4",
         "chai-as-promised": "^7.1.1",
-        "express": "^4.17.1",
-        "rewire": "^5.0.0",
+        "express": "^4.17.2",
+        "rewire": "^6.0.0",
         "sinon": "^12.0.1",
         "sinon-chai": "^3.7.0",
         "sinon-express-mock": "^2.2.1",
         "tslint": "^6.1.2",
         "tslint-no-unused-expression-chai": "^0.1.4",
-        "typedoc": "^0.22.9",
-        "typescript": "^4.4.4"
+        "typedoc": "^0.22.11",
+        "typescript": "^4.5.4"
     },
     "dependencies": {
         "dot-prop": "^6.0.1"
     },
     "peerDependencies": {
-        "@vamship/logger": "^4.3.9",
+        "@vamship/logger": "^4.3.11",
         "bluebird": "^3.7.2",
-        "express": "^4.17.1"
+        "express": "^4.17.2"
     },
     "buildMetadata": {
         "projectType": "lib",
