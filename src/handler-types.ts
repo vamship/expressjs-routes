@@ -3,46 +3,7 @@
  */
 import { Promise } from 'bluebird';
 import { NextFunction, Request, Response } from 'express';
-
-/**
- * Logger object that is provided to the handler for logging purposes.
- */
-export interface ILogger {
-    /**
-     * Logs trace level messages.
-     */
-    trace: (...args: unknown[]) => void;
-
-    /**
-     * Logs debug level messages.
-     */
-    debug: (...args: unknown[]) => void;
-
-    /**
-     * Logs info level messages.
-     */
-    info: (...args: unknown[]) => void;
-
-    /**
-     * Logs warn level messages.
-     */
-    warn: (...args: unknown[]) => void;
-
-    /**
-     * Logs error level messages.
-     */
-    error: (...args: unknown[]) => void;
-
-    /**
-     * Logs fatal level messages.
-     */
-    fatal: (...args: unknown[]) => void;
-
-    /**
-     * Creates a child logger with the given properties.
-     */
-    child: (props: { [prop: string]: string }) => ILogger;
-}
+import { ILogger } from '@vamship/logger';
 
 /**
  * A context object that provides information on the execution context of the
