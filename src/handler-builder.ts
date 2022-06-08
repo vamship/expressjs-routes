@@ -82,22 +82,22 @@ export default class HandlerBuilder {
                 }
             );
             Promise.try(() => {
-                logger.info('HANDLER START');
-                logger.info('Mapping request to input');
+                logger.trace('HANDLER START');
+                logger.trace('Mapping request to input');
                 const input = this._inputMapper(req);
 
                 logger.trace({ input }, 'Handler input');
 
                 if (this._schema) {
-                    logger.info('Validating input schema');
+                    logger.trace('Validating input schema');
                     schemaChecker(input, true);
                 } else {
-                    logger.info(
+                    logger.trace(
                         'No schema specified. Skipping schema validation'
                     );
                 }
 
-                logger.info('Executing handler');
+                logger.trace('Executing handler');
                 return this._handler(
                     input,
                     {
@@ -111,12 +111,12 @@ export default class HandlerBuilder {
             })
                 .then((output) => {
                     logger.trace({ output }, 'Handler output');
-                    logger.info('HANDLER END');
+                    logger.trace('HANDLER END');
                     return this._outputMapper(output, res, next);
                 })
                 .catch((ex) => {
                     logger.error(ex, 'Error executing handler');
-                    logger.info('HANDLER END');
+                    logger.trace('HANDLER END');
                     next(ex);
                 });
         };
