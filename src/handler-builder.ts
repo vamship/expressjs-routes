@@ -5,8 +5,8 @@ import {
     argValidator as _argValidator,
     schemaHelper as _schemaHelper,
 } from '@vamship/arg-utils';
+import { JSONSchemaType } from 'ajv';
 import _loggerProvider from '@vamship/logger';
-import { Promise } from 'bluebird';
 import _dotProp from 'dot-prop';
 import { Handler, NextFunction, Request, Response } from 'express';
 import {
@@ -38,7 +38,7 @@ export default class HandlerBuilder {
     private _handler: RequestHandler;
     private _outputMapper: OutputMapper;
     private _handlerName: string;
-    private _schema?: Record<string, unknown>;
+    private _schema?: JSONSchemaType<unknown>;
 
     /**
      * @param handler The request handler function
@@ -48,7 +48,7 @@ export default class HandlerBuilder {
         _argValidator.checkString(
             handlerName,
             1,
-            'handlerName cannot be empty (arg #1)'
+            'handlerName cannot be empty (arg #1)',
         );
         this._handler = handler;
         this._handlerName = handlerName;
@@ -68,10 +68,10 @@ export default class HandlerBuilder {
             ? _schemaHelper.createSchemaChecker(this._schema)
             : (): boolean => true;
 
-        return (
+        return async (
             req: Request,
             res: Response,
-            next: NextFunction
+            next: NextFunction,
         ): Promise<void> => {
             const requestId = Math.random().toString(36).substring(2, 15);
 
@@ -79,9 +79,10 @@ export default class HandlerBuilder {
                 `handler:${this._handlerName}`,
                 {
                     requestId,
-                }
+                },
             );
-            Promise.try(() => {
+
+            try {
                 logger.trace('HANDLER START');
                 logger.trace('Mapping request to input');
                 const input = this._inputMapper(req);
@@ -93,12 +94,12 @@ export default class HandlerBuilder {
                     schemaChecker(input, true);
                 } else {
                     logger.trace(
-                        'No schema specified. Skipping schema validation'
+                        'No schema specified. Skipping schema validation',
                     );
                 }
 
                 logger.trace('Executing handler');
-                return this._handler(
+                const output = await this._handler(
                     input,
                     {
                         requestId,
@@ -106,19 +107,16 @@ export default class HandlerBuilder {
                     {
                         logger,
                         alias: process.env.NODE_ENV || 'default',
-                    }
+                    },
                 );
-            })
-                .then((output) => {
-                    logger.trace({ output }, 'Handler output');
-                    logger.trace('HANDLER END');
-                    return this._outputMapper(output, res, next);
-                })
-                .catch((ex) => {
-                    logger.error(ex, 'Error executing handler');
-                    logger.trace('HANDLER END');
-                    next(ex);
-                });
+                logger.trace({ output }, 'Handler output');
+                logger.trace('HANDLER END');
+                return this._outputMapper(output, res, next);
+            } catch (ex) {
+                logger.error(ex, 'Error executing handler');
+                logger.trace('HANDLER END');
+                next(ex);
+            }
         };
     }
 
@@ -135,7 +133,7 @@ export default class HandlerBuilder {
      *          chaining.
      */
     public setInputMapper(
-        mapping: { [prop: string]: string } | InputMapper
+        mapping: { [prop: string]: string } | InputMapper,
     ): HandlerBuilder {
         if (typeof mapping === 'function') {
             this._inputMapper = mapping;
@@ -143,8 +141,8 @@ export default class HandlerBuilder {
             this._inputMapper = (req: Request): Record<string, unknown> => {
                 return Object.keys(mapping).reduce((result, prop) => {
                     const path = mapping[prop];
-                    const value = _dotProp.get(req, path);
-                    _dotProp.set(result, prop, value);
+                    const value = _dotProp.getProperty(req, path);
+                    _dotProp.setProperty(result, prop, value);
                     return result;
                 }, {});
             };
@@ -161,7 +159,7 @@ export default class HandlerBuilder {
      * @returns A reference to the handler builder, to be used for function
      *          chaining.
      */
-    public setSchema(schema: Record<string, unknown>): HandlerBuilder {
+    public setSchema(schema: JSONSchemaType<unknown>): HandlerBuilder {
         this._schema = schema;
         return this;
     }
