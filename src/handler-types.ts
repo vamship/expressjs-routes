@@ -1,9 +1,9 @@
 /**
  * @module root
  */
-import { Promise } from 'bluebird';
 import { NextFunction, Request, Response } from 'express';
 import { ILogger } from '@vamship/logger';
+import { JSONSchemaType } from 'ajv';
 
 /**
  * A context object that provides information on the execution context of the
@@ -67,7 +67,7 @@ export type RequestHandler = (
     input: IInput,
     context: IContext,
     ext: IExtendedProperties
-) => Promise;
+) => Promise<Record<string, unknown>>;
 
 /**
  * An output mapper function that takes the output from the handler, and turns
@@ -85,7 +85,7 @@ export type OutputMapper = (
     },
     res: Response,
     next: NextFunction
-) => Promise;
+) => Promise<void>;
 
 /**
  * The standard definition for a route definition module. Objects that conform
@@ -132,5 +132,5 @@ export interface IRouteDefinition {
      * An optional schema to validate requests after the input mapper has mapped
      * the HTTP request to the input object.
      */
-    schema?: Record<string, unknown>;
+    schema?: JSONSchemaType<unknown>;
 }

@@ -1,9 +1,6 @@
-/**
- * @module root
- */
 import _loggerProvider from '@vamship/logger';
 import { Router } from 'express';
-import HandlerBuilder from './handler-builder';
+import { HandlerBuilder } from './handler-builder.js';
 import { IRouteDefinition } from './handler-types';
 
 /**
@@ -17,7 +14,10 @@ import { IRouteDefinition } from './handler-types';
  * @returns The configured router object, with the specified routes mounted on
  *          to it.
  */
-function buildRoutes(routes: IRouteDefinition[], router = Router()): Router {
+export function buildRoutes(
+    routes: IRouteDefinition[],
+    router = Router(),
+): Router {
     const logger = _loggerProvider.getLogger('buildRoutes');
 
     logger.trace('Adding routes to router');
@@ -39,7 +39,7 @@ function buildRoutes(routes: IRouteDefinition[], router = Router()): Router {
 
         builderLogger.trace('Creating route builder');
         const builder = new HandlerBuilder(handlerName, handler).setInputMapper(
-            inputMapper
+            inputMapper,
         );
 
         if (schema) {
@@ -53,10 +53,35 @@ function buildRoutes(routes: IRouteDefinition[], router = Router()): Router {
         }
 
         builderLogger.trace('Mounting route to router');
-        router[method.toLowerCase()](path, builder.build());
+
+        switch (method.toLowerCase()) {
+            case 'all':
+                router.all(path, builder.build());
+                break;
+            case 'get':
+                router.get(path, builder.build());
+                break;
+            case 'post':
+                router.post(path, builder.build());
+                break;
+            case 'put':
+                router.put(path, builder.build());
+                break;
+            case 'delete':
+                router.delete(path, builder.build());
+                break;
+            case 'patch':
+                router.patch(path, builder.build());
+                break;
+            case 'options':
+                router.options(path, builder.build());
+                break;
+            default:
+                throw new Error(
+                    `Unsupported HTTP method: ${method} for route ${handlerName}`,
+                );
+        }
     });
 
     return router;
 }
-
-export default buildRoutes;

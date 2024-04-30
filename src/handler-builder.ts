@@ -7,7 +7,7 @@ import {
 } from '@vamship/arg-utils';
 import { JSONSchemaType } from 'ajv';
 import _loggerProvider from '@vamship/logger';
-import _dotProp from 'dot-prop';
+import { getProperty, setProperty } from 'dot-prop';
 import { Handler, NextFunction, Request, Response } from 'express';
 import {
     IInput,
@@ -26,11 +26,14 @@ import {
  *
  * (3) Response mapping: Generate an HTTP response based on the JSON response
  */
-export default class HandlerBuilder {
+export class HandlerBuilder {
     private static DEFAULT_INPUT_MAPPER(): IInput {
         return {};
     }
-    private static DEFAULT_OUTPUT_MAPPER(data: unknown, res: Response): void {
+    private static async DEFAULT_OUTPUT_MAPPER(
+        data: unknown,
+        res: Response,
+    ): Promise<void> {
         res.json(data);
     }
 
@@ -111,7 +114,8 @@ export default class HandlerBuilder {
                 );
                 logger.trace({ output }, 'Handler output');
                 logger.trace('HANDLER END');
-                return this._outputMapper(output, res, next);
+
+                await this._outputMapper(output, res, next);
             } catch (ex) {
                 logger.error(ex, 'Error executing handler');
                 logger.trace('HANDLER END');
@@ -141,8 +145,8 @@ export default class HandlerBuilder {
             this._inputMapper = (req: Request): Record<string, unknown> => {
                 return Object.keys(mapping).reduce((result, prop) => {
                     const path = mapping[prop];
-                    const value = _dotProp.getProperty(req, path);
-                    _dotProp.setProperty(result, prop, value);
+                    const value = getProperty(req, path);
+                    setProperty(result, prop, value);
                     return result;
                 }, {});
             };
