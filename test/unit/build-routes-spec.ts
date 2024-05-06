@@ -47,11 +47,6 @@ describe('buildRoutes()', function () {
             .addMock('setOutputMapper', () => handlerBuilderMock.instance)
             .addMock('build', () => stub());
 
-        HTTP_METHODS.reduce(
-            (result, method) => result.addMock(method, stub()),
-            handlerBuilderMock,
-        );
-
         const routerMock = new ObjectMock<Router>();
         HTTP_METHODS.reduce(
             (result, method) => result.addMock(method, stub()),

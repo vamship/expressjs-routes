@@ -6,7 +6,7 @@ import {
     schemaHelper as _schemaHelper,
 } from '@vamship/arg-utils';
 import { JSONSchemaType } from 'ajv';
-import _loggerProvider from '@vamship/logger';
+import _logManager from '@vamship/logger';
 import { getProperty, setProperty } from 'dot-prop';
 import { Handler, NextFunction, Request, Response } from 'express';
 import {
@@ -14,7 +14,7 @@ import {
     InputMapper,
     OutputMapper,
     RequestHandler,
-} from './handler-types';
+} from './handler-types.js';
 
 /**
  * Class that can be used to build HTTP request handlers for express js.
@@ -78,7 +78,7 @@ export class HandlerBuilder {
         ): Promise<void> => {
             const requestId = Math.random().toString(36).substring(2, 15);
 
-            const logger = _loggerProvider.getLogger(
+            const logger = _logManager.getLogger(
                 `handler:${this._handlerName}`,
                 {
                     requestId,
