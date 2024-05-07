@@ -69,7 +69,7 @@ export class HandlerBuilder {
     public build(): Handler {
         const schemaChecker = this._schema
             ? _schemaHelper.createSchemaChecker(this._schema)
-            : (): boolean => true;
+            : undefined;
 
         return async (
             req: Request,
@@ -94,7 +94,7 @@ export class HandlerBuilder {
 
                 if (this._schema) {
                     logger.trace('Validating input schema');
-                    schemaChecker(input, true);
+                    schemaChecker!(input, true);
                 } else {
                     logger.trace(
                         'No schema specified. Skipping schema validation',
