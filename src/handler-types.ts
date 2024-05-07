@@ -66,7 +66,7 @@ export type InputMapper = (req: Request) => Record<string, unknown>;
 export type RequestHandler = (
     input: IInput,
     context: IContext,
-    ext: IExtendedProperties
+    ext: IExtendedProperties,
 ) => Promise<Record<string, unknown>>;
 
 /**
@@ -84,7 +84,7 @@ export type OutputMapper = (
         [prop: string]: unknown;
     },
     res: Response,
-    next: NextFunction
+    next: NextFunction,
 ) => Promise<void>;
 
 /**

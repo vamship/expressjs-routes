@@ -2,7 +2,6 @@ import { expect, use as _useWithChai } from 'chai';
 import _sinonChai from 'sinon-chai';
 import _chaiAsPromised from 'chai-as-promised';
 import 'mocha';
-import process from 'process';
 
 _useWithChai(_sinonChai);
 _useWithChai(_chaiAsPromised);
@@ -184,11 +183,7 @@ describe('buildRoutes()', function () {
     });
 
     it('should create a handler builder object for each route definition', async function () {
-        const {
-            testTarget: buildRoutes,
-            routerMock,
-            handlerBuilderMock,
-        } = await _import();
+        const { testTarget: buildRoutes, handlerBuilderMock } = await _import();
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount).map(
             (definition) => {
@@ -212,11 +207,7 @@ describe('buildRoutes()', function () {
     });
 
     it('should use the handler name if one is specified in the request definition', async function () {
-        const {
-            testTarget: buildRoutes,
-            routerMock,
-            handlerBuilderMock,
-        } = await _import();
+        const { testTarget: buildRoutes, handlerBuilderMock } = await _import();
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount);
 
@@ -234,11 +225,7 @@ describe('buildRoutes()', function () {
     });
 
     it('should set the input mapper on the builder for each route definition', async function () {
-        const {
-            testTarget: buildRoutes,
-            routerMock,
-            handlerBuilderMock,
-        } = await _import();
+        const { testTarget: buildRoutes, handlerBuilderMock } = await _import();
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount);
         const setInputMapperMethod = handlerBuilderMock.mocks.setInputMapper;
@@ -256,11 +243,7 @@ describe('buildRoutes()', function () {
     });
 
     it('should set the schema on the builder if the one was specified', async function () {
-        const {
-            testTarget: buildRoutes,
-            routerMock,
-            handlerBuilderMock,
-        } = await _import();
+        const { testTarget: buildRoutes, handlerBuilderMock } = await _import();
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount);
         const setSchemaMethod = handlerBuilderMock.mocks.setSchema;
@@ -278,11 +261,7 @@ describe('buildRoutes()', function () {
     });
 
     it('should not set the schema on the builder if the none was specified', async function () {
-        const {
-            testTarget: buildRoutes,
-            routerMock,
-            handlerBuilderMock,
-        } = await _import();
+        const { testTarget: buildRoutes, handlerBuilderMock } = await _import();
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount, {
             schema: null,
@@ -297,11 +276,7 @@ describe('buildRoutes()', function () {
     });
 
     it('should set the outputMapper on the builder if the one was specified', async function () {
-        const {
-            testTarget: buildRoutes,
-            routerMock,
-            handlerBuilderMock,
-        } = await _import();
+        const { testTarget: buildRoutes, handlerBuilderMock } = await _import();
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount);
         const setOutputMapperMethod = handlerBuilderMock.mocks.setOutputMapper;
@@ -319,11 +294,7 @@ describe('buildRoutes()', function () {
     });
 
     it('should not set the outputMapper on the builder if the none was specified', async function () {
-        const {
-            testTarget: buildRoutes,
-            routerMock,
-            handlerBuilderMock,
-        } = await _import();
+        const { testTarget: buildRoutes, handlerBuilderMock } = await _import();
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount, {
             outputMapper: null,

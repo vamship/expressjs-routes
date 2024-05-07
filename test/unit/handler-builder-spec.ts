@@ -6,7 +6,6 @@ import 'mocha';
 _useWithChai(_sinonChai);
 _useWithChai(_chaiAsPromised);
 
-import process from 'process';
 import { Request, Response } from 'express';
 import { mockReq, mockRes } from 'sinon-express-mock';
 import { SinonSpy, stub, spy } from 'sinon';
@@ -17,14 +16,12 @@ import {
     ObjectMock,
     MockImportHelper,
     testValues as _testValues,
-    asyncHelper as _asyncHelper,
 } from '@vamship/test-utils';
 import { schemaHelper } from '@vamship/arg-utils';
 import logManager, { ILogger, LogManager } from '@vamship/logger';
 import { ArgError } from '@vamship/error-types';
 import { HandlerBuilder } from '../../src/handler-builder.js';
 import {
-    IInput,
     InputMapper,
     OutputMapper,
     RequestHandler,
@@ -184,7 +181,7 @@ describe('HandlerBuilder', function () {
 
     describe('setInputMapper()', function () {
         it('should return a reference to the builder object', async function () {
-            const { builder, builderPrivate } = await _createInstance();
+            const { builder } = await _createInstance();
             const inputMapper: InputMapper = spy();
 
             const ret = builder.setInputMapper(inputMapper);
@@ -268,7 +265,7 @@ describe('HandlerBuilder', function () {
 
     describe('setSchema()', function () {
         it('should return a reference to the builder object', async function () {
-            const { builder, builderPrivate } = await _createInstance();
+            const { builder } = await _createInstance();
             const schemaMock = {} as JSONSchemaType<unknown>;
 
             const ret = builder.setSchema(schemaMock);
@@ -290,7 +287,7 @@ describe('HandlerBuilder', function () {
 
     describe('setOutputMapper()', function () {
         it('should return a reference to the builder object', async function () {
-            const { builder, builderPrivate } = await _createInstance();
+            const { builder } = await _createInstance();
             const outputMapperMock = spy();
             const ret = builder.setOutputMapper(outputMapperMock);
 
@@ -464,7 +461,10 @@ describe('HandlerBuilder', function () {
                     bar: _testValues.getString('bar'),
                 };
                 const reqHandler = stub().returns(processingResult);
-                const { builder } = await _createInstance(undefined, reqHandler);
+                const { builder } = await _createInstance(
+                    undefined,
+                    reqHandler,
+                );
                 const outputMapperMock = spy();
 
                 builder.setOutputMapper(outputMapperMock);

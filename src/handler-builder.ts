@@ -15,6 +15,7 @@ import {
     OutputMapper,
     RequestHandler,
 } from './handler-types.js';
+import process from 'process';
 
 /**
  * Class that can be used to build HTTP request handlers for express js.
