@@ -326,6 +326,7 @@ describe('HandlerBuilder', function () {
 
                 await handler(req, res, next);
 
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(inputMapperMock).to.have.been.calledOnce;
                 expect(inputMapperMock).to.have.been.calledWithExactly(req);
             });
@@ -342,6 +343,7 @@ describe('HandlerBuilder', function () {
 
                 await handler(req, res, next);
 
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(next).to.have.been.calledOnce;
                 expect(next).to.have.been.calledWithExactly(error);
             });
@@ -353,10 +355,12 @@ describe('HandlerBuilder', function () {
                 const handler = builder.build();
                 const { req, res, next } = _getExpressObjects();
 
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(checkSchema).to.not.have.been.called;
 
                 await handler(req, res, next);
 
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(checkSchema).to.not.have.been.called;
             });
 
@@ -377,10 +381,12 @@ describe('HandlerBuilder', function () {
                 const handler = builder.build();
                 const { req, res, next } = _getExpressObjects();
 
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(checkSchema).to.not.have.been.called;
 
                 await handler(req, res, next);
 
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(checkSchema).to.have.been.calledOnce;
                 expect(checkSchema).to.have.been.calledWithExactly(
                     expectedInput,
@@ -400,6 +406,7 @@ describe('HandlerBuilder', function () {
 
                 await handler(req, res, next);
 
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(next).to.have.been.calledOnce;
                 expect(next).to.have.been.calledWithExactly(error);
             });
@@ -423,6 +430,7 @@ describe('HandlerBuilder', function () {
 
                 await handler(req, res, next);
 
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(reqHandler).to.have.been.calledOnce;
                 expect(reqHandler.args[0].length).to.equal(3);
 
@@ -432,9 +440,11 @@ describe('HandlerBuilder', function () {
 
                 expect(input).to.deep.equal(expectedInput);
                 expect(context).to.be.an('object');
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(context.requestId).to.be.a('string').and.to.not.be.empty;
                 expect(ext).to.be.an('object');
                 expect(ext.logger).to.equal(loggerMock.instance);
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(ext.alias).to.be.a('string').and.to.not.be.empty;
             });
 
@@ -451,6 +461,7 @@ describe('HandlerBuilder', function () {
 
                 await handler(req, res, next);
 
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(next).to.have.been.calledOnce;
                 expect(next).to.have.been.calledWithExactly(error);
             });
@@ -472,6 +483,7 @@ describe('HandlerBuilder', function () {
                 const { req, res, next } = _getExpressObjects();
 
                 await handler(req, res, next);
+                // eslint-disable-next-line tsel/no-unused-expressions
                 expect(outputMapperMock).to.have.been.calledOnce;
                 expect(outputMapperMock).to.have.been.calledWithExactly(
                     processingResult,

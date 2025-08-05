@@ -120,10 +120,12 @@ describe('buildRoutes()', function () {
         const definitions = _createRouteDefinitions(10);
         const routerCtor = routerMock.ctor;
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(routerCtor).to.not.have.been.called;
 
         buildRoutes(definitions);
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(routerCtor).to.have.been.calledOnce;
     });
 
@@ -132,10 +134,12 @@ describe('buildRoutes()', function () {
         const definitions = _createRouteDefinitions(10);
         const routerCtor = routerMock.ctor;
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(routerCtor).to.not.have.been.called;
 
         buildRoutes(definitions, routerMock.instance);
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(routerCtor).to.not.have.been.called;
     });
 
@@ -165,20 +169,30 @@ describe('buildRoutes()', function () {
         const setSchemaMethod = handlerBuilderMock.mocks.setSchema;
         const setOutputMapperMethod = handlerBuilderMock.mocks.setOutputMapper;
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(routerCtor).to.not.have.been.called;
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(handlerBuilderMock.ctor).to.not.have.been.called;
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setInputMapperMethod.stub).to.not.have.been.called;
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setSchemaMethod.stub).to.not.have.been.called;
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setOutputMapperMethod.stub).to.not.have.been.called;
 
         const ret = buildRoutes(definitions);
 
         expect(ret).to.equal(routerMock.instance);
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(routerCtor).to.have.been.calledOnce;
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(handlerBuilderMock.ctor).to.not.have.been.called;
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setInputMapperMethod.stub).to.not.have.been.called;
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setSchemaMethod.stub).to.not.have.been.called;
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setOutputMapperMethod.stub).to.not.have.been.called;
     });
 
@@ -192,6 +206,7 @@ describe('buildRoutes()', function () {
             },
         );
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(handlerBuilderMock.ctor).to.not.have.been.called;
 
         buildRoutes(definitions);
@@ -211,6 +226,7 @@ describe('buildRoutes()', function () {
         const routeCount = 10;
         const definitions = _createRouteDefinitions(routeCount);
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(handlerBuilderMock.ctor).to.not.have.been.called;
 
         buildRoutes(definitions);
@@ -230,6 +246,7 @@ describe('buildRoutes()', function () {
         const definitions = _createRouteDefinitions(routeCount);
         const setInputMapperMethod = handlerBuilderMock.mocks.setInputMapper;
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setInputMapperMethod.stub).to.not.have.been.called;
 
         buildRoutes(definitions);
@@ -248,6 +265,7 @@ describe('buildRoutes()', function () {
         const definitions = _createRouteDefinitions(routeCount);
         const setSchemaMethod = handlerBuilderMock.mocks.setSchema;
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setSchemaMethod.stub).to.not.have.been.called;
 
         buildRoutes(definitions);
@@ -268,10 +286,12 @@ describe('buildRoutes()', function () {
         });
         const setSchemaMethod = handlerBuilderMock.mocks.setSchema;
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setSchemaMethod.stub).to.not.have.been.called;
 
         buildRoutes(definitions);
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setSchemaMethod.stub).to.not.have.been.called;
     });
 
@@ -281,6 +301,7 @@ describe('buildRoutes()', function () {
         const definitions = _createRouteDefinitions(routeCount);
         const setOutputMapperMethod = handlerBuilderMock.mocks.setOutputMapper;
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setOutputMapperMethod.stub).to.not.have.been.called;
 
         buildRoutes(definitions);
@@ -301,10 +322,12 @@ describe('buildRoutes()', function () {
         });
         const setOutputMapperMethod = handlerBuilderMock.mocks.setOutputMapper;
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setOutputMapperMethod.stub).to.not.have.been.called;
 
         buildRoutes(definitions);
 
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(setOutputMapperMethod.stub).to.not.have.been.called;
     });
 
@@ -320,13 +343,16 @@ describe('buildRoutes()', function () {
         const buildMethod = handlerBuilderMock.mocks.build;
 
         HTTP_METHODS.forEach((method) => {
+            // eslint-disable-next-line tsel/no-unused-expressions
             expect(routerMock.mocks[method].stub).to.not.have.been.called;
         });
+        // eslint-disable-next-line tsel/no-unused-expressions
         expect(buildMethod.stub).to.not.have.been.called;
 
         buildRoutes(definitions);
 
         HTTP_METHODS.forEach((method) => {
+            // eslint-disable-next-line tsel/no-unused-expressions
             expect(routerMock.mocks[method].stub).to.have.been.calledOnce;
         });
         expect(buildMethod.stub.callCount).to.equal(routeCount);
